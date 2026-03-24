@@ -1,8 +1,7 @@
-# Fly.io デプロイ設定
-# `fly launch` 実行後に app と primary_region が自動設定されます
+# fly.toml - hr-bot Fly.io設定
 
-app = "hr-bot"
-primary_region = "nrt"
+app = 'hr-bot'
+primary_region = 'nrt'
 
 [build]
 
