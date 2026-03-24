@@ -1,0 +1,10 @@
+[project]
+name = "hr-bot"
+version = "0.1.0"
+description = "Discordの会話に区切り線を投稿できるBot"
+requires-python = ">=3.11"
+dependencies = [
+    "aiosqlite>=0.22.1",
+    "discord-py>=2.4",
+    "python-dotenv>=1.2.2",
+]
