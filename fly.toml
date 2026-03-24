@@ -1,0 +1,17 @@
+# Fly.io デプロイ設定
+# `fly launch` 実行後に app と primary_region が自動設定されます
+
+app = "hr-bot"
+primary_region = "nrt"
+
+[build]
+
+# 最小スペックのVM（無料枠内）
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
+
+# SQLiteファイルを永続化するボリューム
+[[mounts]]
+  source = "hr_data"
+  destination = "/data"
