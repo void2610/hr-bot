@@ -11,14 +11,26 @@ class HR(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
-    @app_commands.command(name="hr", description="登録済みの区切り線をランダムに投稿します")
-    async def hr(self, interaction: discord.Interaction) -> None:
-        text = await db.get_random_hr(interaction.guild_id)
+    @app_commands.command(name="hr", description="登録済みの区切り線を投稿します（省略時はランダム）")
+    @app_commands.describe(index="/listhr の番号を指定すると該当の区切り線を投稿します")
+    async def hr(self, interaction: discord.Interaction, index: int | None = None) -> None:
+        if index is None:
+            # インデックス未指定時はランダム取得
+            text = await db.get_random_hr(interaction.guild_id)
+        else:
+            text = await db.get_hr_by_index(interaction.guild_id, index)
+
         if text is None:
-            await interaction.response.send_message(
-                "区切り線が登録されていません。`/addhr` で登録してください。",
-                ephemeral=True,
-            )
+            if index is None:
+                await interaction.response.send_message(
+                    "区切り線が登録されていません。`/addhr` で登録してください。",
+                    ephemeral=True,
+                )
+            else:
+                await interaction.response.send_message(
+                    f"番号 `{index}` の区切り線は見つかりませんでした。`/listhr` で番号を確認してください。",
+                    ephemeral=True,
+                )
             return
         await interaction.response.send_message(text)
 

@@ -48,6 +48,17 @@ async def get_random_hr(guild_id: int) -> str | None:
             return row[0] if row else None
 
 
+async def get_hr_by_index(guild_id: int, index: int) -> str | None:
+    """登録順のインデックス（1始まり）で区切り線を取得する。範囲外の場合はNoneを返す。"""
+    async with aiosqlite.connect(DB_PATH) as db:
+        async with db.execute(
+            "SELECT text FROM hr_entries WHERE guild_id = ? ORDER BY created_at ASC LIMIT 1 OFFSET ?",
+            (str(guild_id), index - 1),
+        ) as cursor:
+            row = await cursor.fetchone()
+            return row[0] if row else None
+
+
 async def list_hr(guild_id: int) -> list[tuple[int, str]]:
     """サーバーの区切り線リストをID付きで全件取得する。"""
     async with aiosqlite.connect(DB_PATH) as db:
