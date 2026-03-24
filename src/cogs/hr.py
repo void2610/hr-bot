@@ -25,9 +25,9 @@ class HR(commands.Cog):
     @app_commands.command(name="addhr", description="区切り線を登録します")
     @app_commands.describe(text="登録する区切り線の文字列（絵文字も使用可）")
     async def addhr(self, interaction: discord.Interaction, text: str) -> None:
-        if len(text) > 200:
+        if len(text) > 2000:
             await interaction.response.send_message(
-                "区切り線は200文字以内で登録してください。",
+                "区切り線は2000文字以内で登録してください。",
                 ephemeral=True,
             )
             return
