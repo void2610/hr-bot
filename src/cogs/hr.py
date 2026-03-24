@@ -34,7 +34,7 @@ class HR(commands.Cog):
 
         success = await db.add_hr(interaction.guild_id, text)
         if success:
-            await interaction.response.send_message(f"✅ 区切り線を登録しました: `{text}`")
+            await interaction.response.send_message(f"✅ 区切り線を登録しました: {text}")
         else:
             await interaction.response.send_message(
                 "その区切り線はすでに登録されています。",
@@ -69,7 +69,7 @@ class HR(commands.Cog):
                 ephemeral=True,
             )
             return
-        await interaction.response.send_message(f"🗑️ 区切り線を削除しました: `{deleted_text}`")
+        await interaction.response.send_message(f"🗑️ 区切り線を削除しました: {deleted_text}")
 
 
 async def setup(bot: commands.Bot) -> None:
